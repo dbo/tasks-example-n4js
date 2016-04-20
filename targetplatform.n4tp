@@ -1,0 +1,15 @@
+{
+  "location" : [
+    {
+      "config" : {
+      },
+      "projects" : {
+        "mongodb" : {
+        },
+        "express" : {
+        }
+      },
+      "repoType" : "npm"
+    }
+  ]
+}

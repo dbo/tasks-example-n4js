@@ -1,0 +1,13 @@
+import { AbstractStorageTest } from "AbstractStorageTest";
+import { Storage } from "Storage";
+import { StorageInMemory } from "StorageInMemory";
+
+
+export public class StorageInMemoryTest extends AbstractStorageTest {
+
+    @Override
+    protected createStorage(): Storage {
+        return new StorageInMemory();
+    }
+
+}

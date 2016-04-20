@@ -1,0 +1,25 @@
+ArtifactId: n4js.example.tasks.tests
+VendorId: eu.numberfour
+ProjectName: "n4js.example.tasks.tests"
+VendorName: "NumberFour AG"
+ProjectType: test
+ProjectVersion: 0.0.1
+TestedProjects {
+    n4js.example.tasks
+}
+Output: "src-gen"
+Sources {
+    test {
+        "src"
+    }
+}
+
+RequiredRuntimeLibraries {
+    n4js-runtime-n4
+}
+
+ProjectDependencies {
+    n4js.lang,
+    eu.numberfour.mangelhaft,
+    eu.numberfour.mangelhaft.assert
+}

@@ -1,0 +1,14 @@
+import { Storage } from "Storage";
+import { StorageMongoDB } from "StorageMongoDB";
+import { WebUI } from "WebUI";
+import { N4Injector } from "n4js/lang/N4Injector";
+
+@Binder
+@Bind(Storage, StorageMongoDB)
+class Binding { }
+
+@GenerateInjector
+@UseBinder(Binding)
+class Root { }
+
+N4Injector.of(Root).create(WebUI).start();

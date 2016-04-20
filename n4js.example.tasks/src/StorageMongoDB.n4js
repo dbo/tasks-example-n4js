@@ -1,0 +1,83 @@
+import { Storage } from "Storage";
+import { Task, Appointment, Todo } from "model";
+import { Collection, Db, MongoClient, ObjectID } from "mongodb";
+
+
+/**
+ * Persistence for task lists using a mongodb instance.
+ */
+export class StorageMongoDB implements Storage {
+
+    cachedDb: Db = null;
+
+    private async getTasksCollection(): Collection {
+        if (!this.cachedDb) {
+            this.cachedDb = await MongoClient.connect('mongodb://localhost:27017/tasks');
+        }
+        return this.cachedDb.collection('tasks');
+    }
+
+    public async shutdown() {
+        this.cachedDb.close(true);
+        this.cachedDb = null;
+    }
+
+    @Override
+    public async size(): int {
+        let coll = await this.getTasksCollection();
+        return await coll.count({});
+    }
+
+    @Override
+    public async clear() {
+        let coll = await this.getTasksCollection();
+        await coll.deleteMany({});
+    }
+
+    @Override
+    public async getTasks(): Array<Task> {
+        let coll = await this.getTasksCollection();
+        let resultRaw = await coll.find({}).toArray();
+        let result = resultRaw.map((data): Task => fromData(data));
+        return result;
+    }
+
+    @Override
+    public async storeTask(task: Task): string {
+        let coll = await this.getTasksCollection();
+        let result = await coll.insertOne(toData(task));
+        if (result.insertedCount === 1) {
+            task.id = result.insertedId.toHexString();
+            return task.id;
+        }
+        throw new Error("insert document failed");
+    }
+}
+
+function toData(task: Task): ~~Task {
+    let metaClass = N4Type.of(task),
+        data: any+ = {};
+    // note: would have to set data._id, here, if we
+    // wanted support for updating existing tasks
+    data._type = metaClass.name;
+    let taskAsObject: Object = task; // up-cast to object to allow index access
+    for (let field of metaClass.dataFields(true,true)) {
+        data[field.name] = taskAsObject[field.name];
+    }
+    return data;
+}
+
+function fromData(data: any+): Task {
+    let ctor = typeToCtor.get(data._type as string);
+    if (!ctor) {
+        throw new Error('Unsupported type of data model entity: ' + data._type);
+    }
+    let task = new ctor(data);
+    task.id = (data._id as ObjectID).toHexString();
+    return task;
+}
+
+let typeToCtor = new Map<string,constructor{Task}>([
+    ['Todo', Todo] as Iterable2<string, constructor{Task}>,
+    ['Appointment', Appointment] as Iterable2<string, constructor{Task}>
+]);

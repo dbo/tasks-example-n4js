@@ -1,0 +1,81 @@
+import { Priority, Appointment, Todo } from "model";
+import { Storage } from "Storage";
+import { Assert } from "n4/mangel/assert/Assert";
+
+
+/**
+ * Contains the actual test cases for testing implementations of Storage.
+ * Subclasses will choose which concrete implementation to test.
+ */
+export public abstract class AbstractStorageTest {
+
+    /** A storage intended for testing. Created in #prepare() method. */
+    protected storage: Storage;
+
+    protected abstract createStorage(): Storage;
+
+    @BeforeAll
+    async prepareStorage() {
+        this.storage = this.createStorage();
+    }
+
+    @Before
+    async clearStorage() {
+        // make sure test storage is empty before each test starts
+        await this.storage.clear();
+    }
+
+    @Test
+    async testClear() {
+        let s = this.storage;
+
+        await s.storeTask(new Todo());
+        Assert.isFalse(await s.isEmpty());
+
+        await s.clear();
+        Assert.isTrue(await s.isEmpty());
+    }
+
+    @Test
+    async testStoreTodo() {
+        let s = this.storage;
+        let todo = new Todo();
+
+        Assert.equal(0, await s.size());
+        let id = await s.storeTask(todo);
+        Assert.equal(1, await s.size());
+        Assert.equal(id, todo.id);
+    }
+
+    @Test
+    async testStoreAppointment() {
+        let s = this.storage;
+        let appointment = new Appointment();
+
+        Assert.equal(0, await s.size());
+        let id = await s.storeTask(appointment);
+        Assert.equal(1, await s.size());
+        Assert.equal(id, appointment.id);
+    }
+
+    @Test
+    async testGetTasks() {
+        let s = this.storage;
+        let todo = new Todo({
+            label: 'test',
+            priority: Priority.HIGH,
+            dueDate: new Date(2016, 3, 13, 14, 30, 0)
+        });
+
+        await s.storeTask(todo);
+        let restoredTasks = await s.getTasks();
+
+        Assert.equal(1, restoredTasks.length);
+        Assert.isTrue(restoredTasks[0] instanceof Todo);
+        let restoredTodo = restoredTasks[0] as Todo;
+        Assert.equal(todo.label, restoredTodo.label);
+        Assert.equal(todo.priority, restoredTodo.priority);
+        Assert.equal(todo.dueDate.getTime(), restoredTodo.dueDate.getTime());
+    }
+
+}

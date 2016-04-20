@@ -1,0 +1,24 @@
+import { Task } from "model";
+
+
+export public interface Storage {
+
+    async size(): int
+    async clear()
+
+    async getTasks(): Array<Task>
+    async storeTask(task: Task): string
+
+    // method with default implementation that implementors can override
+    // to provide more performant implementation
+    async isEmpty(): boolean {
+        return (await this.size()) === 0;
+    }
+
+    async dump() {
+        (await this.getTasks()).forEach((task) => {
+            console.log(task.id, task.label);
+        });
+    }
+
+}

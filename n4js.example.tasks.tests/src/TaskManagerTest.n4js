@@ -1,0 +1,23 @@
+import { Storage } from "Storage";
+import { StorageInMemory } from "StorageInMemory";
+import { TaskManager } from "TaskManager";
+import { Assert } from "n4/mangel/assert/Assert";
+
+
+@Binder
+@Bind(Storage,StorageInMemory)
+class InMemoryBinder { }
+
+@GenerateInjector @UseBinder(InMemoryBinder)
+export public class TaskManagerTest {
+
+    @Inject
+    mgr: TaskManager;
+
+    @Test
+    async testCreateTodo() {
+        await this.mgr.createTodo("test todo");
+        Assert.equal("test todo", (await this.mgr.getTasks())[0].label);
+    }
+
+}

@@ -1,0 +1,24 @@
+import { Storage } from "Storage";
+import { Task, Todo } from "model";
+
+
+export public class TaskManager {
+
+    @Inject
+    private storage: Storage;
+
+    public async clear() {
+        await this.storage.clear();
+    }
+
+    public async getTasks(): Array<Task> {
+        return await this.storage.getTasks();
+    }
+
+    public async createTodo(label: string): string {
+        let newTodo = new Todo({label: label});
+        let newId = await this.storage.storeTask(newTodo);
+        return newId;
+    }
+
+}

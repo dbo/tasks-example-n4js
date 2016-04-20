@@ -1,0 +1,23 @@
+import { AbstractStorageTest } from "AbstractStorageTest";
+import { Storage } from "Storage";
+import { StorageMongoDB } from "StorageMongoDB";
+import { Precondition } from "n4/mangel/precondition/Precondition"
+
+export public class StorageMongoDBTest extends AbstractStorageTest {
+    public constructor() {
+        Precondition.isFalse(n4.runtimeOptions["no-mongo"], "skip mongo tests");
+    }
+
+    @Override
+    protected createStorage(): Storage {
+        return new StorageMongoDB();
+    }
+
+    @AfterAll
+    async disposeStorage() {
+        if (this.storage instanceof StorageMongoDB) {
+            await (this.storage as StorageMongoDB).shutdown();
+        }
+    }
+
+}

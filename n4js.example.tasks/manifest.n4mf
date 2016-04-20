@@ -1,0 +1,23 @@
+ArtifactId: n4js.example.tasks
+VendorId: eu.numberfour
+ProjectName: "n4js.example.tasks"
+VendorName: "NumberFour AG"
+ProjectType: library
+ProjectVersion: 0.0.1
+Output: "src-gen"
+Sources {
+    source {
+        "src"
+    }
+}
+
+RequiredRuntimeLibraries {
+    n4js-runtime-es2015,
+    n4js-runtime-node
+}
+
+ProjectDependencies {
+    n4js.lang,
+    mongodb,
+    express
+}

@@ -1,0 +1,39 @@
+import { Storage } from "Storage";
+import { Task } from "model";
+
+
+/**
+ * In-memory persistence for task lists.
+ */
+export class StorageInMemory implements Storage {
+
+    private lowestUnusedId = 1;
+
+    @Final
+    private tasks = new Map<string,Task>();
+
+    @Override
+    public async size(): int {
+        return this.tasks.size;
+    }
+
+    @Override
+    public async clear() {
+        this.lowestUnusedId = 1;
+        this.tasks.clear();
+    }
+
+    @Override
+    public async getTasks(): Array<Task> {
+        return Array.from(this.tasks.values());
+    }
+
+    @Override
+    public async storeTask(task: Task): string {
+        let id = 'id' + this.lowestUnusedId++;
+        this.tasks.set(id, task);
+        task.id = id;
+        return id;
+    }
+
+}

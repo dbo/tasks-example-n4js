@@ -1,0 +1,32 @@
+export abstract class Task {
+
+    public id: string?;
+    public label: string?;
+
+    constructor(@Spec spec: ~i~this?) {
+        // code for initialization will be generated due to @Spec annotation
+    }
+
+}
+
+/** A single to-be-done task. */
+export class Todo extends Task {
+
+    public dueDate: Date?;
+    public priority = Priority.NORMAL;
+    public done = false;
+
+}
+
+/** An appointment. */
+export class Appointment extends Task {
+
+    public time: Date?;
+    public place: string?;
+
+}
+
+@StringBased // using string-based enum to simplify (de-)serialization
+export enum Priority {
+    LOW, NORMAL, HIGH
+}
