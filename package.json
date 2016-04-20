@@ -1,5 +1,5 @@
 {
-  "name": "tasksExample_n4js",
+  "name": "tasks-example-n4js",
   "version": "1.0.0",
   "author": "NumberFour AG <npm@numberfour.eu>",
   "license": "EPL-1.0",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.numberfour.eu:dboelzle/tasksExample_n4js.git"
+    "url": "git@github.com:dbo/tasks-example-n4js.git"
   },
   "keywords": [],
   "devDependencies": {
