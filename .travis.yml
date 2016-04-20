@@ -8,10 +8,11 @@
 # Contributors:
 #   NumberFour AG - Initial API and implementation
 #
-sudo: false
+sudo: required
+script:
+  - sudo apt-get update && sudo apt-get install oracle-java8-installer
+  - java -version
 language: node_js
-before_install:
-  - java install oraclejdk8
 node_js:
   - "5"
 services:
