@@ -24,5 +24,6 @@ n4js-mangelhaft \
     --xunitReportFile ./build/tasks-test-report.xml \
     --xunitReportName tasks-test-report \
     --xunitReportPackage n4js.example.tasks.tests \
+    --debug \
     --scan . \
     $@
