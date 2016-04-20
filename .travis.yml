@@ -14,6 +14,7 @@ addons:
     packages:
       - oracle-java8-installer
 script:
+  - jdk_switcher use oraclejdk8
   - java -version
 language: node_js
 node_js:
