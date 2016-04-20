@@ -9,15 +9,15 @@
 #   NumberFour AG - Initial API and implementation
 #
 sudo: false
+language: node_js
 addons:
   apt:
     packages:
-      - oracle-java8-installer
-script:
-  - jdk_switcher use oraclejdk8
-  - java -version
-language: node_js
+      - oracle-java8-set-default
 node_js:
   - "5"
 services:
   - mongodb
+script:
+  - jdk_switcher use oraclejdk8
+  - java -version
