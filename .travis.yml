@@ -12,10 +12,6 @@ sudo: false
 language: node_js
 before_install:
   - java install oraclejdk8
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
 node_js:
   - "5"
 services:
