@@ -10,6 +10,8 @@
 #
 sudo: false
 language: node_js
+before_install:
+  - java install oraclejdk8
 addons:
   apt:
     packages:
