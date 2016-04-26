@@ -13,6 +13,6 @@
   },
   "keywords": [],
   "devDependencies": {
-    "n4js-node-mangelhaft": "^0.3.1"
+    "n4js-node-mangelhaft": "^0.3.2"
   }
 }
