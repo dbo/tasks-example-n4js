@@ -13,4 +13,4 @@ set -e
 cd `dirname $0`
 
 npm install
-npm test -- --define no-mongo=t
+npm test

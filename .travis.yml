@@ -16,4 +16,4 @@ before_install:
 node_js:
   - "5"
 services:
-  - mongodb
+#  - mongodb
