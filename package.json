@@ -5,7 +5,7 @@
   "license": "EPL-1.0",
   "description": "Code of [UserGuide](https://numberfour.github.io/n4js/userguide/)",
   "scripts": {
-    "test": "./npm-build-test.sh"
+    "test": "n4js-mangelhaft --scan . --compile --targetPlatformFile targetplatform.n4tp --targetPlatformInstallLocation build/npm --xunitReportFile build/tasks-test-report.xml --xunitReportName tasks-test-report --xunitReportPackage n4js.example.tasks.tests"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,6 @@
   },
   "keywords": [],
   "devDependencies": {
-    "n4js-node-mangelhaft": "^0.3.2"
+    "n4js-node-mangelhaft": "latest"
   }
 }

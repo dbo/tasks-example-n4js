@@ -17,7 +17,6 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 npm-debug.log
-.npm-log
 .metadata
 node_modules/
 src-gen/
