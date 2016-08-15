@@ -1,6 +1,5 @@
-ArtifactId: n4js.example.tasks
+ProjectId: n4js.example.tasks
 VendorId: eu.numberfour
-ProjectName: "n4js.example.tasks"
 VendorName: "NumberFour AG"
 ProjectType: library
 ProjectVersion: 0.0.1
