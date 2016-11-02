@@ -55,7 +55,7 @@ export class StorageMongoDB implements Storage {
 }
 
 function toData(task: Task): ~~Task {
-    let metaClass = N4Type.of(task),
+    let metaClass = task.constructor.n4type,
         data: any+ = {};
     // note: would have to set data._id, here, if we
     // wanted support for updating existing tasks
